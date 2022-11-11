@@ -9,23 +9,15 @@ package sc303.practica02ed;
  * @author usuario
  */
 public class Node <T> {
-    private T value;
+    private int value;
     private Node<T> next;
     private Node<T> back;
 
-    public Node(T value) {
-        this.value = value;
+    public Node(int value) {
+        this.value = 0;
     }
     
     public Node() {
-    }
-
-    public T getValue() {
-        return value;
-    }
-
-    public void setValue(T value) {
-        this.value = value;
     }
 
     public Node<T> getNext() {
@@ -42,5 +34,13 @@ public class Node <T> {
 
     public void setBack(Node<T> back) {
         this.back = back;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }

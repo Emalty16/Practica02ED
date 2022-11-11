@@ -4,67 +4,79 @@ package sc303.practica02ed;
 public class Lista {
     
     
-    private Node<Buscador> head;
+    private Node<Buscador> head;   
+    private int tamanio;
     
-    public Lista(){
-        
-        
+    public void Lista(){
+        head = null;
+        tamanio = 0;
     }
     
-    public void insertar(Buscador value){
-        Node<Buscador> node = new Node<Buscador>(value);
-        if (head == null ){
-            head = node;
+    public boolean esVacia(){
+        return head == null;
+    }
+
+    public int getTamanio(){
+        return tamanio;
+    }
+ 
+    public void Lista(int valor){
+        Node nuevo = new Node();
+        nuevo.setValue(valor);
+        if (esVacia()) {
+            head = nuevo;
+        } else{
+
+            nuevo.setNext(head);
+            head = nuevo;
         }
-        else if( head.getValue().getId()> node.getValue().getId()){
-            
-            node.setNext(head);
-            head = node;
-        }
-        else if(head.getValue().getId()<node.getValue().getId() && head.getNext() == null){
-            
-            head.setNext(node);
-        }
-        else{
-            Node <Buscador> aux=head;
-            while(aux.getNext() != null && aux.getNext().getValue().getId()< node.getValue().getId()){
-               aux = aux.getNext();
+   
+        tamanio++;
+    }
+    
+
+    public int getValor(int posicion) throws Exception{
+        if(posicion>=0 && posicion<tamanio){
+            if (posicion == 0) {
+                return head.getValue();
+            }else{
+                Node aux = head;
+                for (int i = 0; i < posicion; i++) {
+                    aux = aux.getNext();
+                }
+                return aux.getValue();
             }
-            node.setNext(aux.getNext());
-            aux.setNext(node);
+        // Crea una excepción de Posicion inexistente en la lista.
+        } else {
+            throw new Exception("Posicion inexistente en la lista.");
         }
     }
-    
     
     public boolean buscar(int referencia){
-        // Crea una copia de la lista.
         Node aux = head;
-        // Bandera para indicar si el valor existe.
         boolean encontrado = false;
-        // Recorre la lista hasta encontrar el elemento o hasta 
-        // llegar al final de la lista.
         while(aux != null && encontrado != true){
-            // Consulta si el valor del nodo es igual al de referencia.
             if (referencia == aux.getValue()){
-                // Cambia el valor de la bandera.
                 encontrado = true;
             }
             else{
-                // Avanza al siguiente nodo
                 aux = aux.getNext();
             }
         }
-        // Retorna el resultado de la bandera
         return encontrado;
     }
     
-    
-    public void imprimir (){
-        Node<Buscador> aux= head;
-        while(aux != null){
-            System.out.println(aux.getValue().toString());
-            aux = aux.getNext();
-                      
+
+    public void listar(){
+        if (!esVacia()) {
+            Node aux = head;
+            int i = 0;
+            while(aux != null){
+                System.out.print(i + ".[ " + aux.getValue()+ " ]" + " ->  ");
+                aux = aux.getNext();
+
+                i++;
+            }
         }
     }
 }
